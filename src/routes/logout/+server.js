@@ -1,0 +1,1 @@
+import { redirect } from '@sveltejs/kit'; import { deleteSession } from '$lib/server/auth.js'; export async function POST({cookies}){await deleteSession(cookies.get('session'));cookies.delete('session',{path:'/'});throw redirect(303,'/');}
