@@ -2,12 +2,12 @@ import { env } from "$env/dynamic/private";
 import { MongoClient } from "mongodb";
 
 const uri = env.MONGODB_URI;
-const dbName = env.MONGODB_DB || "owe_easy";
+const dbName = env.MONGODB_DB;
 let database;
 export async function getDb() {
-  if (!uri)
+  if (!uri || !dbName)
     throw new Error(
-      "MONGODB_URI is not configured. Copy .env.example to .env and add your MongoDB connection string.",
+      "MONGODB_URI and MONGODB_DB are not configured. Copy .env.example to .env and add your MongoDB settings.",
     );
   if (!database) {
     const client = new MongoClient(uri);
