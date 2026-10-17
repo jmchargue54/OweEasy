@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/db.js';
+import { notify } from '$lib/server/notifications.js';
 
 function escapeRegex(value) { return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
@@ -31,6 +32,7 @@ export const actions = {
     const existing = await db.collection('groupJoinRequests').findOne({ groupId: _id, userId });
     if (existing?.status === 'pending') return fail(400, { error: 'Your request is already waiting for approval.' });
     await db.collection('groupJoinRequests').updateOne({ groupId: _id, userId }, { $set: { status: 'pending', updatedAt: new Date() }, $setOnInsert: { groupId: _id, userId, createdAt: new Date() } }, { upsert: true });
+    await notify(db, { userId: group.createdBy, type: 'join-request', title: 'New group join request', message: `${locals.user.name} requested to join ${group.name}.`, groupId: _id });
     return { success: 'Your request was sent to the group creator.' };
   }
 };

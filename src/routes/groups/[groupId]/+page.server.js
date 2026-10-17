@@ -1,6 +1,7 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/db.js';
+import { notify } from '$lib/server/notifications.js';
 
 async function getCreatorGroup(db, groupId, userId) { return db.collection('groups').findOne({ _id: groupId, memberIds: userId, createdBy: userId }); }
 
@@ -69,5 +70,6 @@ async function updateRequest(request, params, locals, status) {
   if (!joinRequest) return fail(404, { error: 'That join request is no longer pending.' });
   if (status === 'approved') await db.collection('groups').updateOne({ _id: groupId }, { $addToSet: { memberIds: joinRequest.userId }, $set: { updatedAt: new Date() } });
   await db.collection('groupJoinRequests').updateOne({ _id: joinRequest._id, status: 'pending' }, { $set: { status, updatedAt: new Date() } });
+  await notify(db, { userId: joinRequest.userId, type: `join-${status}`, title: `Group join request ${status}`, message: `Your request to join ${group.name} was ${status}.`, groupId });
   return { success: status === 'approved' ? 'Member approved.' : 'Request declined.' };
 }
