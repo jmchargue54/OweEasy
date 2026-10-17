@@ -1,0 +1,55 @@
+{
+	"/": [
+		"src/routes/+layout.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/auth/google": [
+		"src/routes/auth/google/+server.js"
+	],
+	"/auth/google/callback": [
+		"src/routes/auth/google/callback/+server.js"
+	],
+	"/dashboard": [
+		"src/routes/dashboard/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/groups/join": [
+		"src/routes/groups/join/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/groups/new": [
+		"src/routes/groups/new/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/groups/[groupId]": [
+		"src/routes/groups/[groupId]/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/groups/[groupId]/expenses/new": [
+		"src/routes/groups/[groupId]/expenses/new/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/groups/[groupId]/expenses/[expenseId]/edit": [
+		"src/routes/groups/[groupId]/expenses/[expenseId]/edit/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/groups/[groupId]/settings": [
+		"src/routes/groups/[groupId]/settings/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/login": [
+		"src/routes/login/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/logout": [
+		"src/routes/logout/+server.js"
+	],
+	"/notifications": [
+		"src/routes/notifications/+page.server.js",
+		"src/routes/+layout.server.js"
+	],
+	"/signup": [
+		"src/routes/signup/+page.server.js",
+		"src/routes/+layout.server.js"
+	]
+}

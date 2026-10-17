@@ -1,0 +1,10 @@
+import * as server from '../entries/pages/groups/_groupId_/expenses/new/_page.server.js';
+
+export const index = 7;
+let component_cache;
+export const component = async () => component_cache ??= (await import('../entries/pages/groups/_groupId_/expenses/new/_page.svelte.js')).default;
+export { server };
+export const server_id = "src/routes/groups/[groupId]/expenses/new/+page.server.js";
+export const imports = ["_app/immutable/nodes/7._j8D9gH1.js","_app/immutable/chunks/D_2TWl6e.js","_app/immutable/chunks/dU_bGZrZ.js","_app/immutable/chunks/BmXaIVsW.js","_app/immutable/chunks/BHDqMuN8.js","_app/immutable/chunks/0EIR70kx.js","_app/immutable/chunks/DQip_cuf.js","_app/immutable/chunks/BoNqzI4T.js"];
+export const stylesheets = ["_app/immutable/assets/7.Df0XxBAX.css"];
+export const fonts = [];
