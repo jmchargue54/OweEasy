@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/groups/[groupId]/expenses/new/+page.svelte";
