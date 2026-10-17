@@ -1,12 +1,13 @@
 import bcrypt from 'bcryptjs';
 import { randomUUID } from 'node:crypto';
 import { OAuth2Client } from 'google-auth-library';
+import { env } from '$env/dynamic/private';
 import { getDb } from './db.js';
 
 const googleClient = new OAuth2Client(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  process.env.GOOGLE_REDIRECT_URI
+  env.GOOGLE_CLIENT_ID,
+  env.GOOGLE_CLIENT_SECRET,
+  env.GOOGLE_REDIRECT_URI
 );
 
 export async function createUser(name, email, password) {
@@ -77,7 +78,7 @@ export async function loginWithGoogle(code) {
 
   const ticket = await googleClient.verifyIdToken({
     idToken: tokens.id_token,
-    audience: process.env.GOOGLE_CLIENT_ID
+    audience: env.GOOGLE_CLIENT_ID
   });
 
   const payload = ticket.getPayload();
