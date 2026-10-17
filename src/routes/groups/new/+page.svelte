@@ -1,0 +1,3 @@
+<script>export let form;</script>
+<div class="narrow"><a href="/dashboard">← Back to dashboard</a><div class="card form"><p class="eyebrow">Start a shared space</p><h1>Create a group</h1><p class="muted">Make a group for a trip, household, or anything you share.</p>{#if form?.error}<p class="error" role="alert">{form.error}</p>{/if}<form method="POST"><label>Group name<input name="name" placeholder="e.g. Apartment 4B" required /></label><button class="button">Create group</button></form></div></div>
+<style>.narrow{margin:2rem auto;max-width:600px}.form{margin-top:1.5rem}.form form{display:grid;gap:1rem;margin-top:1.5rem}.eyebrow{color:#d26d35;font-weight:800;text-transform:uppercase}.muted{color:#58746b}</style>
