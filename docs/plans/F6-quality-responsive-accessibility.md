@@ -2,6 +2,10 @@
 
 > Implementation plan. Source: [docs/MVP_FEATURE_INVENTORY.md](../MVP_FEATURE_INVENTORY.md) §F6.
 
+## Current implementation status
+
+The current UI includes responsive layouts, labeled controls, semantic headings, empty/error/success feedback, server-side validation, keyboard-submit-capable forms, and delete confirmation. Automated Playwright, axe, and focused unit/integration coverage are not yet in the repository and remain planned.
+
 ## Metadata
 
 | Field | Value |
@@ -10,7 +14,7 @@
 | **Section** | Shared Expense Tracker MVP |
 | **Severity** | MAJOR |
 | **Markets** | USD shared-expense groups |
-| **Status (today)** | MISSING |
+| **Status (today)** | PARTIAL |
 | **Estimated effort** | S (≤1 week) |
 | **Owner (proposed)** | Feature team |
 | **Depends on** | F1, F2, F3, F4, F5 |
@@ -108,7 +112,7 @@ N/A — this plan does not require model inference or AI-specific data handling.
 ## 13. Dependencies & Sequencing
 
 - Must ship after: F1, F2, F3, F4, F5, F6.
-- Must ship before: F8.
+- Must ship before: F7.
 - Shared infrastructure: database connection, migrations, authenticated request context, validation conventions, and the test harness.
 - Parallel work is allowed inside the plan only when the shared data/API contract is agreed first.
 
@@ -153,5 +157,5 @@ N/A — this plan does not require model inference or AI-specific data handling.
 ## 19. References
 
 - [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F7.
-- [Shared expense tracker project document](../../outputs/shared-expense-tracker-project-document.md).
+- [Shared expense tracker project document](../../project%20documentation/shared-expense-tracker-project-document.md).
 - [WDD 430 project specification](https://wdd430.netlify.app/prove/project-proposal/).

@@ -2,6 +2,10 @@
 
 > Implementation plan. Source: [docs/MVP_FEATURE_INVENTORY.md](../MVP_FEATURE_INVENTORY.md) §F4.
 
+## Current implementation status
+
+The app stores `paid` on each expense split and lets a member toggle that state from the group page. It does not yet calculate raw or netted balances, persist settlement documents, show settlement history, or provide correction behavior. This is the next implementation priority.
+
 ## Metadata
 
 | Field | Value |
@@ -10,7 +14,7 @@
 | **Section** | Shared Expense Tracker MVP |
 | **Severity** | BLOCKER |
 | **Markets** | USD shared-expense groups |
-| **Status (today)** | MISSING |
+| **Status (today)** | PARTIAL / NEXT PRIORITY |
 | **Estimated effort** | S (≤1 week) |
 | **Owner (proposed)** | Feature team |
 | **Depends on** | F2, F3 |
@@ -153,6 +157,6 @@ N/A — this plan does not require model inference or AI-specific data handling.
 ## 19. References
 
 - [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F4.
-- [Shared expense tracker project document](../../outputs/shared-expense-tracker-project-document.md).
+- [Shared expense tracker project document](../../project%20documentation/shared-expense-tracker-project-document.md).
 - [WDD 430 project specification](https://wdd430.netlify.app/prove/project-proposal/).
 

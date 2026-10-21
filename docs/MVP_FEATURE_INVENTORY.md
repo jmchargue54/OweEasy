@@ -1,12 +1,24 @@
-# Shared Expense Tracker MVP Feature Inventory
+# OweEasy MVP Feature Inventory (updated October 21, 2026)
 
-The MVP is intentionally grouped into seven implementation plans. Each plan is one coherent feature area and remains small enough for a student team to implement in about one week or less.
+The MVP is intentionally grouped into seven implementation plans. The status column reflects the current SvelteKit implementation, not the original proposal.
 
-1. **F1 — Foundation and Authentication** — infrastructure/supporting foundation; includes local setup, user persistence, email/Google sign-in, protected routes, and current-user summary.
-2. **F2 — Groups and Membership** — blocked by F1; includes group persistence, creation, listing, members, add/remove validation, and auto-netting settings.
-3. **F3 — Expenses and Equal-split CRUD** — blocked by F1 and F2; includes expense/share data, categories, create/list/details/edit, and soft deletion.
-4. **F4 — Balances and Settlements** — blocked by F2 and F3; includes raw balances, traceability, auto-netting, balances view, settlement record/history/correction.
-5. **F5 — Dashboard and User Views** — blocked by F1, F3, and F4; includes cross-group dashboard, add-expense preview, expense detail/edit, and user summary.
-6. **F6 — Responsive UX, Accessibility, and Validation** — blocked by F1–F5; includes mobile/desktop behavior and accessible empty/loading/error/validation states.
-7. **F7 — API Documentation, README, and Release Readiness** — blocked by F1–F6; includes API/authorization documentation, setup, known issues, and future work.
+1. **F1 — Foundation and Authentication — complete** — local setup, MongoDB user persistence, email/Google sign-in, 14-day HTTP-only sessions, protected routes, and current-user navigation.
+2. **F2 — Groups and Membership — partial** — group creation/listing/search, member display, join requests, creator approval/rejection, rename, and member removal. Manual add and auto-netting settings remain planned.
+3. **F3 — Expenses and Equal-split CRUD — complete for current scope** — expense persistence, categories, create/list, equal cent allocation, edit, soft delete, and paid-share toggles.
+4. **F4 — Balances and Settlements — partial/not complete** — payment flags are stored on expense splits, but calculated balances, auto-netting, settlement records, and settlement history are not implemented.
+5. **F5 — Dashboard and User Views — partial** — dashboard, group page, add-expense preview, edit-expense page, group settings, join-group discovery, and notifications are implemented. Dedicated balance and user-summary views remain planned.
+6. **F6 — Responsive UX, Accessibility, and Validation — partial** — responsive CSS, labeled forms, semantic headings, empty/error/success states, and delete confirmation are present. Automated Playwright/axe tests and shared validation modules remain planned.
+7. **F7 — API Documentation, README, and Release Readiness — in progress** — setup and implementation notes are being updated here; a REST API does not yet exist because the app uses SvelteKit form actions and server loads.
+
+## Current route inventory
+
+| Area | Implemented routes |
+|---|---|
+| Public/auth | `/`, `/login`, `/signup`, `/logout`, `/auth/google`, `/auth/google/callback` |
+| Dashboard | `/dashboard` |
+| Groups | `/groups/new`, `/groups/join`, `/groups/[groupId]`, `/groups/[groupId]/settings` |
+| Expenses | `/groups/[groupId]/expenses/new`, `/groups/[groupId]/expenses/[expenseId]/edit` |
+| Notifications | `/notifications` |
+
+All group-scoped loads and actions verify the authenticated user is a member; creator-only actions additionally verify `createdBy`.
 

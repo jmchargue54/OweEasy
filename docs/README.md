@@ -1,16 +1,18 @@
-# Shared Expense Tracker Feature Plans
+# OweEasy documentation and implementation plans
 
-There are seven focused plans. The earlier 39-slice inventory was consolidated so each file represents one coherent implementation area while still naming the smaller slices it contains. Notifications are deferred to future improvements.
+The active implementation is the SvelteKit app in `../sveltekit`. The Astro directory is a separate reserved implementation and is not the source of truth for the current MVP.
+
+The plans below are now status documents as well as implementation guides. Their statuses were reconciled with the code in October 2026; “partial” means the implemented path is usable but the original plan still contains unfinished scope.
 
 | Order | Feature ID | Plan | Depends on | Why this order |
 |---:|---|---|---|---|
-| 1 | F1 | Foundation and Authentication | none | Establishes local setup, identity, and protected routes. |
-| 2 | F2 | Groups and Membership | F1 | Establishes the group boundary for private shared data. |
-| 3 | F3 | Expenses and Equal-split CRUD | F1, F2 | Stores the source data needed for balances. |
-| 4 | F4 | Balances and Settlements | F2, F3 | Calculates obligations and records payments. |
-| 5 | F5 | Dashboard and User Views | F1, F3, F4 | Connects the core workflows into usable views. |
-| 6 | F6 | Responsive UX, Accessibility, and Validation | F1–F5 | Hardens every MVP flow across devices and users. |
-| 7 | F7 | API Documentation, README, and Release Readiness | F1–F6 | Makes the completed MVP runnable, reviewable, and handoff-ready. |
+| 1 | F1 | Foundation and Authentication | none | Complete: local setup, email/Google identity, sessions, and protected routes. |
+| 2 | F2 | Groups and Membership | F1 | Partial: group creation, discovery, join approval, and creator settings are implemented. |
+| 3 | F3 | Expenses and Equal-split CRUD | F1, F2 | Complete for the current equal-split scope. |
+| 4 | F4 | Balances and Settlements | F2, F3 | Partial: payment flags exist; computed balances and settlement records remain. |
+| 5 | F5 | Dashboard and User Views | F1, F3, F4 | Partial: dashboard, group, add, and edit views exist; balance views remain. |
+| 6 | F6 | Responsive UX, Accessibility, and Validation | F1–F5 | Partial: responsive/accessible states are present; automated QA remains. |
+| 7 | F7 | API Documentation, README, and Release Readiness | F1–F6 | In progress: documentation and release checks are being reconciled. |
 
 ## Dependency map
 
@@ -18,13 +20,13 @@ There are seven focused plans. The earlier 39-slice inventory was consolidated s
 - F3 → F4 and F5; F4 → F5.
 - F1–F5 → F6; F1–F6 → F7.
 
-## First feature to implement
+## Current implementation path
 
-Start with **F1 — Foundation and Authentication** because it removes uncertainty about setup, migrations, sessions, and protected routes for every later plan.
+The working path is: sign up or sign in → create or find a group → request membership when needed → approve a request as the group creator → add an equal-split expense → edit or soft-delete it → toggle member payment status → review notifications. The next product slice is F4 balance computation and settlement history.
 
 ## Shared risks
 
-- A late authentication-provider decision can delay F1 and every protected route.
-- Inconsistent integer-cent or soft-delete rules can force rework in F3 and F4.
-- Unclear membership authorization can invalidate group, expense, and balance behavior.
-- Missing migration and test conventions can slow all parallel work.
+- Balance calculations must be derived from active expenses and existing split/payment flags.
+- Google OAuth requires environment configuration and a registered callback URL in each environment.
+- The app currently uses form actions and server loads rather than a separate REST API; the API table in the project document is a target contract, not a list of existing endpoints.
+- A build attempt is currently blocked by the local sandbox returning `spawn EPERM` from esbuild; `npm run check` completes with zero Svelte diagnostics.

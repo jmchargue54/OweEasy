@@ -2,6 +2,10 @@
 
 > Implementation plan. Source: [docs/MVP_FEATURE_INVENTORY.md](../MVP_FEATURE_INVENTORY.md) §F3.
 
+## Current implementation status
+
+Complete for the equal-split MVP path: create/list, category/date/payer fields, integer cent storage, exact remainder allocation, member validation, edit, soft delete, and paid flags. The group page is the current expense detail/list surface; custom splits and restore remain out of scope.
+
 ## Metadata
 
 | Field | Value |
@@ -10,7 +14,7 @@
 | **Section** | Shared Expense Tracker MVP |
 | **Severity** | BLOCKER |
 | **Markets** | USD shared-expense groups |
-| **Status (today)** | MISSING |
+| **Status (today)** | COMPLETE FOR CURRENT SCOPE |
 | **Estimated effort** | S (≤1 week) |
 | **Owner (proposed)** | Feature team |
 | **Depends on** | F1, F2 |
@@ -153,6 +157,6 @@ N/A — this plan does not require model inference or AI-specific data handling.
 ## 19. References
 
 - [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F3.
-- [Shared expense tracker project document](../../outputs/shared-expense-tracker-project-document.md).
+- [Shared expense tracker project document](../../project%20documentation/shared-expense-tracker-project-document.md).
 - [WDD 430 project specification](https://wdd430.netlify.app/prove/project-proposal/).
 

@@ -8,6 +8,12 @@ Shared Expense Tracker helps roommates, trip groups, and other small groups mana
 
 The central product principle is clarity: each displayed balance should be explainable from the underlying expenses, and any auto-netted result should be explicitly labeled.
 
+### Current implementation snapshot — October 21, 2026
+
+The active implementation is `sveltekit/` and uses SvelteKit server loads/form actions with MongoDB. The working flow is email or Google sign-in → group creation/discovery → membership request and creator approval → equal-split expense entry → edit or soft delete → paid-share tracking → in-app notifications. Group membership is checked on the server for every group-scoped load and action.
+
+Calculated balances, auto-netting, settlement records/history, custom splits, and automated browser/accessibility tests remain roadmap items. The REST-style endpoint list in this document is the target contract for those future capabilities; the current app does not expose a separate REST API.
+
 ## 2. Target Audience and Users
 
 - Roommates splitting utilities, groceries, household supplies, and shared purchases
@@ -20,12 +26,12 @@ The MVP has no administrator role. Group members can participate in expense trac
 
 | Feature area | MVP implementation |
 |---|---|
-| Authentication | Email login, Google login, sign out, and authenticated dashboard entry. |
-| Groups | Create groups, add existing users manually, belong to multiple groups, and configure auto-netting per group. |
-| Expenses | Create, view, edit, and soft-delete expenses with payer, amount, date, description, category, and equal-split participants. |
-| Balances | Show per-person totals, expense-level breakdowns, group totals, and optional auto-netted obligations with a clear indicator. |
-| Settlements | Mark a debt as paid and store a settlement record and history. |
-| Core views | Dashboard, group page, add-expense form, expense detail/edit view, balances view, user summary, settings, and mobile quick-add. |
+| Authentication | **Implemented:** email signup/login/logout, Google login, sessions, and authenticated dashboard entry. |
+| Groups | **Partial:** create/list/search groups, request membership, creator approval/rejection, rename, member removal, and multiple memberships. Manual add and auto-netting configuration remain planned. |
+| Expenses | **Implemented for equal split:** create, list, edit, soft-delete, payer, amount, date, description, category, exact cent splits, and paid-share flags. |
+| Balances | **Planned:** calculated per-person totals, traceable breakdowns, group totals, and optional auto-netted obligations. |
+| Settlements | **Partial:** users can toggle a split’s paid flag; settlement records and history are planned. |
+| Core views | **Partial:** dashboard, group page, add-expense form with preview, edit view, join-group discovery, creator settings, notifications, and responsive styling. Dedicated balance/user-summary views remain planned. |
 
 ## 4. Additional Features
 
@@ -166,9 +172,9 @@ A payment between members that can settle a netted balance across multiple expen
 - Deleted expenses are excluded from active balance calculations.
 - Historical expenses should remain auditable if membership later changes.
 
-## 7. API Endpoints
+## 7. Target API Endpoints
 
-The following REST-style endpoints represent the required interactions. They can be implemented through REST, RPC, or GraphQL as long as the same capabilities and authorization rules are preserved.
+The following REST-style endpoints represent the target contract for the planned API surface. The current SvelteKit implementation uses server loads and form actions instead of separate `/api` endpoints. They can be implemented through REST, RPC, or GraphQL as long as the same capabilities and authorization rules are preserved.
 
 | Area | Endpoint | Interaction |
 |---|---|---|
@@ -203,7 +209,7 @@ The following REST-style endpoints represent the required interactions. They can
 - Return enough balance metadata to explain how auto-netting changed the displayed obligations.
 - Make soft deletion idempotent and preserve the deletion timestamp for the purge job.
 
-## Release Boundary
+## Release Boundary and current next steps
 
-The first release is complete when a user can sign in, create or join a group, record an equal-split expense, inspect a detailed or auto-netted balance, record a settlement. Custom splits, external money movement, and multi-currency accounting remain outside the MVP.
+The current prototype boundary is complete when a user can sign in, create or discover a group, obtain membership approval, record an equal-split expense, edit or delete it, mark shares paid, and receive relevant notifications. Before calling the original MVP release complete, implement calculated balances, traceable obligations, and settlement history, then add automated responsive/accessibility coverage. Custom splits, external money movement, and multi-currency accounting remain outside the MVP.
 

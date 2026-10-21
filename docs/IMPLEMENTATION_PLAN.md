@@ -1,27 +1,27 @@
-# OweEasy Bakeoff 1 Implementation Plan
+# OweEasy Implementation Plan (updated October 21, 2026)
 
-Build a working prototype in two weeks with SvelteKit SSR and MongoDB. Core path: sign up/log in → create a group → add an equal-split expense → inspect the group expense list. This is not a production accounting system.
+The current working prototype uses SvelteKit SSR and MongoDB. The implemented path is sign up/sign in → create or discover a group → request/approve membership → add an equal-split expense → edit or soft-delete it → mark member shares paid → review notifications. This is not a production accounting system.
 
 ## Technology decisions
 
 - SvelteKit server `load` functions, form actions, and protected routes.
 - MongoDB Atlas with the official `mongodb` driver and cached connection.
-- Email/password sessions now; Google OAuth reserved as the student-owned feature.
+- Email/password sessions and Google OAuth are implemented; Google still requires local/provider environment configuration.
 - Server validation and integer USD cents; no floating-point values are persisted.
 
 ## Sequence
 
-1. F1 foundation/authentication — complete.
-2. F2 groups/membership — current-user group creation and server membership checks complete.
-3. F3 expenses — equal split, category, date, payer, and explicit shares complete.
-4. F4 balances/settlements — next: raw balances, traceable obligations, settlement history.
-5. F5 dashboard views — richer cross-group totals and expense detail/edit.
-6. F6 quality — reusable loading/error states, keyboard/mobile review, Playwright/axe tests.
-7. F7 release — route, authorization, deployment, and known-issue documentation.
+1. F1 foundation/authentication — complete: email signup/login/logout, Google OAuth callback, sessions, and protected routes.
+2. F2 groups/membership — partial: create/list/search groups, join requests, creator approval, rename, and member removal are implemented; auto-netting and manual member addition are not.
+3. F3 expenses — complete for equal splits: create/list/edit/soft-delete, category/date, integer cents, exact remainder allocation, and paid flags.
+4. F4 balances/settlements — next: calculate raw balances, explain obligations, and persist settlement history.
+5. F5 dashboard views — partial: dashboard, group expense list, add-expense preview, and edit view are implemented; dedicated balances and user summary views are not.
+6. F6 quality — partial: responsive layouts, labels, empty/error/success states, and destructive confirmation exist; automated Playwright/axe coverage is still planned.
+7. F7 release — current: keep documentation aligned with the SvelteKit routes, environment variables, deployment target, and known verification limits.
 
 ## Student-owned feature: Google sign-in
 
-Implement this in `src/routes/login/+page.server.js` at the TODO. Use a maintained OAuth library, validate callback state/nonce, upsert the verified user, create the existing session record/cookie, and redirect to `/dashboard`. Keep provider keys in `.env` only.
+Google sign-in is implemented in `sveltekit/src/routes/auth/google/+server.js`, `sveltekit/src/routes/auth/google/callback/+server.js`, and `sveltekit/src/lib/server/auth.js`. The flow stores a short-lived state cookie, validates the returned state, verifies the Google ID token, upserts the user, creates the existing session, and redirects to `/dashboard`. Provider keys remain in `.env` only.
 
 ## Acceptance checklist
 
@@ -30,4 +30,4 @@ Implement this in `src/routes/login/+page.server.js` at the TODO. Use a maintain
 - Groups and expenses are membership-protected.
 - Stored expense cents and split cents total exactly.
 - Desktop/mobile forms remain usable.
-- `npm run check` and `npm run build` pass.
+- `npm run check` passes with zero Svelte diagnostics. `npm run build` should be run in a normal local Node environment; the current Codex sandbox reports esbuild `spawn EPERM` before compilation begins.

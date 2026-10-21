@@ -2,6 +2,10 @@
 
 > Implementation plan. Source: [docs/MVP_FEATURE_INVENTORY.md](../MVP_FEATURE_INVENTORY.md) §F7.
 
+## Current implementation status
+
+This plan is in progress. The root README, SvelteKit README, shared project document, feature inventory, and implementation plan now describe the current routes, data behavior, Google OAuth configuration, notifications, partial balance/settlement scope, and verification results. A separate REST API and automated release test suite do not yet exist.
+
 ## Metadata
 
 | Field | Value |
@@ -10,7 +14,7 @@
 | **Section** | Shared Expense Tracker MVP |
 | **Severity** | MINOR |
 | **Markets** | USD shared-expense groups |
-| **Status (today)** | MISSING |
+| **Status (today)** | IN PROGRESS |
 | **Estimated effort** | XS (≤1 week) |
 | **Owner (proposed)** | Feature team |
 | **Depends on** | F1, F2, F3, F4, F5, F6 |
@@ -107,7 +111,7 @@ N/A — this plan does not require model inference or AI-specific data handling.
 
 ## 13. Dependencies & Sequencing
 
-- Must ship after: F1, F2, F3, F4, F5, F6, F7.
+- Must ship after: F1, F2, F3, F4, F5, F6.
 - Must ship before: none.
 - Shared infrastructure: database connection, migrations, authenticated request context, validation conventions, and the test harness.
 - Parallel work is allowed inside the plan only when the shared data/API contract is agreed first.
@@ -152,6 +156,6 @@ N/A — this plan does not require model inference or AI-specific data handling.
 
 ## 19. References
 
-- [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F8.
-- [Shared expense tracker project document](../../outputs/shared-expense-tracker-project-document.md).
+- [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F7.
+- [Shared expense tracker project document](../../project%20documentation/shared-expense-tracker-project-document.md).
 - [WDD 430 project specification](https://wdd430.netlify.app/prove/project-proposal/).

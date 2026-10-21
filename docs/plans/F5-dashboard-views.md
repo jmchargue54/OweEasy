@@ -2,6 +2,10 @@
 
 > Implementation plan. Source: [docs/MVP_FEATURE_INVENTORY.md](../MVP_FEATURE_INVENTORY.md) §F5.
 
+## Current implementation status
+
+Implemented: cross-group dashboard with recent expenses, group page with members and expenses, add-expense equal-split preview, edit/soft-delete view, group settings, join-group discovery, and notifications. Dedicated balance, cross-group debt totals, and user-summary views depend on F4 and remain planned.
+
 ## Metadata
 
 | Field | Value |
@@ -10,7 +14,7 @@
 | **Section** | Shared Expense Tracker MVP |
 | **Severity** | MAJOR |
 | **Markets** | USD shared-expense groups |
-| **Status (today)** | MISSING |
+| **Status (today)** | PARTIAL |
 | **Estimated effort** | S (≤1 week) |
 | **Owner (proposed)** | Feature team |
 | **Depends on** | F1, F3, F4 |
@@ -153,6 +157,6 @@ N/A — this plan does not require model inference or AI-specific data handling.
 ## 19. References
 
 - [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F5.
-- [Shared expense tracker project document](../../outputs/shared-expense-tracker-project-document.md).
+- [Shared expense tracker project document](../../project%20documentation/shared-expense-tracker-project-document.md).
 - [WDD 430 project specification](https://wdd430.netlify.app/prove/project-proposal/).
 

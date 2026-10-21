@@ -2,6 +2,10 @@
 
 > Implementation plan. Source: [docs/MVP_FEATURE_INVENTORY.md](../MVP_FEATURE_INVENTORY.md) §F1.
 
+## Current implementation status
+
+Complete in `sveltekit/`: email signup/login/logout, Google OAuth with state and ID-token validation, MongoDB user/session persistence, 14-day HTTP-only sessions, protected routes, and current-user navigation. `npm run check` reports zero Svelte diagnostics; provider configuration remains environment-specific.
+
 ## Metadata
 
 | Field | Value |
@@ -10,7 +14,7 @@
 | **Section** | Shared Expense Tracker MVP |
 | **Severity** | BLOCKER |
 | **Markets** | USD shared-expense groups |
-| **Status (today)** | MISSING |
+| **Status (today)** | COMPLETE |
 | **Estimated effort** | S (≤1 week) |
 | **Owner (proposed)** | Feature team |
 | **Depends on** | none |
@@ -153,6 +157,6 @@ N/A — this plan does not require model inference or AI-specific data handling.
 ## 19. References
 
 - [MVP feature inventory](../MVP_FEATURE_INVENTORY.md) — F1.
-- [Shared expense tracker project document](../../outputs/shared-expense-tracker-project-document.md).
+- [Shared expense tracker project document](../../project%20documentation/shared-expense-tracker-project-document.md).
 - [WDD 430 project specification](https://wdd430.netlify.app/prove/project-proposal/).
 
