@@ -4,7 +4,7 @@
 
 ## Current implementation status
 
-Complete in `sveltekit/`: email signup/login/logout, Google OAuth with state and ID-token validation, MongoDB user/session persistence, 14-day HTTP-only sessions, protected routes, and current-user navigation. `npm run check` reports zero Svelte diagnostics; provider configuration remains environment-specific.
+Complete in `sveltekit/`: email signup/login/logout, Google OAuth with state and ID-token validation, MongoDB user/session persistence, 14-day HTTP-only sessions, protected routes, and current-user navigation. The requested replacement policy—session-only browser cookie plus a 20-minute inactivity timeout—is planned, not implemented. `npm run check` reports zero Svelte diagnostics; provider configuration remains environment-specific.
 
 ## Metadata
 

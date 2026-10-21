@@ -19,6 +19,15 @@ The current working prototype uses SvelteKit SSR and MongoDB. The implemented pa
 6. F6 quality — partial: responsive layouts, labels, empty/error/success states, and destructive confirmation exist; automated Playwright/axe coverage is still planned.
 7. F7 release — current: keep documentation aligned with the SvelteKit routes, environment variables, deployment target, and known verification limits.
 
+## Newly requested behavior
+
+These requirements are documented for the next implementation pass and are not yet implemented in the app:
+
+- Notifications are marked read after the user remains on the notification screen for at least three seconds.
+- Dashboard recent expenses link to the corresponding expense view.
+- The expense creator can mark any participant as paid; every other user can mark only their own share.
+- Sessions use a browser-session cookie and expire after 20 minutes without activity.
+
 ## Student-owned feature: Google sign-in
 
 Google sign-in is implemented in `sveltekit/src/routes/auth/google/+server.js`, `sveltekit/src/routes/auth/google/callback/+server.js`, and `sveltekit/src/lib/server/auth.js`. The flow stores a short-lived state cookie, validates the returned state, verifies the Google ID token, upserts the user, creates the existing session, and redirects to `/dashboard`. Provider keys remain in `.env` only.

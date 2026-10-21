@@ -6,6 +6,8 @@
 
 The app stores `paid` on each expense split and lets a member toggle that state from the group page. It does not yet calculate raw or netted balances, persist settlement documents, show settlement history, or provide correction behavior. This is the next implementation priority.
 
+Requested authorization refinement: the expense creator should be able to toggle any participant’s paid state, while all other members should be limited to their own split. This remains unimplemented.
+
 ## Metadata
 
 | Field | Value |

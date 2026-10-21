@@ -11,6 +11,8 @@ OweEasy is a SvelteKit + MongoDB prototype for shared group expenses. The curren
 
 The app creates indexes on first connection. Never commit `.env`.
 
+Planned follow-up behavior includes three-second notification auto-read, clickable dashboard expense entries, payer-controlled payment marking, and session-only login with a 20-minute inactivity timeout. These requirements are documented but not yet implemented.
+
 ## MongoDB connection walkthrough
 
 `src/lib/server/db.js` caches one MongoClient and creates indexes for users, sessions, groups, join requests, expenses, settlements, and notifications. `src/hooks.server.js` reads the HTTP-only session cookie before each request. Groups store member ObjectIds; expenses store integer `amountCents` and explicit cent-based `splits`; notifications link join requests and expenses to users. The server, not just the browser, checks group membership and validates expenses.

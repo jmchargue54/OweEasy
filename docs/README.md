@@ -24,6 +24,8 @@ The plans below are now status documents as well as implementation guides. Their
 
 The working path is: sign up or sign in → create or find a group → request membership when needed → approve a request as the group creator → add an equal-split expense → edit or soft-delete it → toggle member payment status → review notifications. The next product slice is F4 balance computation and settlement history.
 
+The next UI/security refinement also includes three-second notification auto-read, clickable dashboard expense entries, payer-controlled payment marking, and session-only 20-minute inactivity expiration. These are planned requirements, not current behavior.
+
 ## Shared risks
 
 - Balance calculations must be derived from active expenses and existing split/payment flags.

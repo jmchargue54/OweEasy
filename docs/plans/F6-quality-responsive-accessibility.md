@@ -6,6 +6,8 @@
 
 The current UI includes responsive layouts, labeled controls, semantic headings, empty/error/success feedback, server-side validation, keyboard-submit-capable forms, and delete confirmation. Automated Playwright, axe, and focused unit/integration coverage are not yet in the repository and remain planned.
 
+The notification screen should also mark unread notifications read after a continuous three-second visit; this is a planned behavior and is not yet implemented.
+
 ## Metadata
 
 | Field | Value |

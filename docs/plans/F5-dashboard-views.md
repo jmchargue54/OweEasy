@@ -6,6 +6,8 @@
 
 Implemented: cross-group dashboard with recent expenses, group page with members and expenses, add-expense equal-split preview, edit/soft-delete view, group settings, join-group discovery, and notifications. Dedicated balance, cross-group debt totals, and user-summary views depend on F4 and remain planned.
 
+The dashboard’s recent-expense entries are currently display-only. Linking each entry to its expense view is a documented follow-up.
+
 ## Metadata
 
 | Field | Value |

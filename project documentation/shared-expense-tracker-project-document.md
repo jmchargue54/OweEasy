@@ -14,6 +14,15 @@ The active implementation is `sveltekit/` and uses SvelteKit server loads/form a
 
 Calculated balances, auto-netting, settlement records/history, custom splits, and automated browser/accessibility tests remain roadmap items. The REST-style endpoint list in this document is the target contract for those future capabilities; the current app does not expose a separate REST API.
 
+### Additional requested behavior for the next implementation pass
+
+- Mark notifications as read after the visitor remains on `/notifications` for at least three seconds.
+- Link dashboard recent-expense entries to the corresponding expense view.
+- Allow the expense creator to mark any participant as paid; allow other users to mark only their own share.
+- Use a session-only login cookie and expire the server session after 20 minutes of inactivity.
+
+These are requirements to implement next and are intentionally not represented as completed behavior in the current status below.
+
 ## 2. Target Audience and Users
 
 - Roommates splitting utilities, groceries, household supplies, and shared purchases
