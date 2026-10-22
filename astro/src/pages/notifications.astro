@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getDb } from '../lib/server/db.js';
+import { ObjectId } from 'mongodb';
+const db = await getDb(); const notifications = await db.collection('notifications').find({ userId: new ObjectId(Astro.locals.user.id) }).sort({ createdAt: -1 }).limit(100).toArray();
+---
+<Layout title="Inbox"><div class="page"><header class="page-heading"><div><p class="eyebrow">Stay in the loop</p><h1>Your inbox</h1><p>Small updates that keep shared costs from becoming awkward.</p></div>{notifications.some((item) => !item.readAt) && <form method="POST" action="/api/notifications/read"><input type="hidden" name="all" value="true" /><button class="button secondary" type="submit">Mark all as read</button></form>}</header><section class="panel">{notifications.length ? notifications.map((notification) => <article class:list-unread={!notification.readAt} class="notification"><div><strong>{notification.title}</strong><p>{notification.message}</p><small>{new Date(notification.createdAt).toLocaleString()}</small></div>{!notification.readAt && <form method="POST" action="/api/notifications/read"><input type="hidden" name="notificationId" value={notification._id} /><button class="read-button" type="submit">Mark read</button></form>}</article>) : <div class="empty-state">You’re all caught up.</div>}</section></div></Layout>

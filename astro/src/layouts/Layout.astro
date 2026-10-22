@@ -1,0 +1,16 @@
+---
+import '../styles/global.css';
+const { title = 'OweEasy', description = 'Clear shared expenses for real life.' } = Astro.props;
+const currentPath = Astro.url.pathname;
+const nav = [
+  { href: '/dashboard', label: 'Overview', icon: '⌂' },
+  { href: '/groups/alpha', label: 'Household', icon: '◫' },
+  { href: '/groups/alpha/balances', label: 'Balances', icon: '↗' },
+  { href: '/notifications', label: 'Inbox', icon: '◌' }
+];
+---
+<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content={description} /><title>{title} · OweEasy</title></head><body>
+<div class="app-shell"><aside class="sidebar" aria-label="Primary navigation"><a class="brand" href="/dashboard"><span class="brand-mark">oe</span><span>OweEasy</span></a><div class="sidebar-label">Workspace</div><nav>{nav.map((item) => <a class:list-active={currentPath === item.href || (item.href !== '/dashboard' && currentPath.startsWith(item.href))} href={item.href}><span class="nav-icon" aria-hidden="true">{item.icon}</span>{item.label}</a>)}</nav><div class="sidebar-spacer"></div><div class="sidebar-note"><span class="spark">✦</span><b>Keep it clear</b><p>Every balance has a story. OweEasy helps you find it.</p></div><a class="profile" href="/dashboard"><span class="avatar avatar-lilac">JM</span><span><b>Jordan Miller</b><small>Personal workspace</small></span><span class="profile-more">···</span></a></aside>
+<main class="main-content"><div class="topbar"><button class="mobile-menu" aria-label="Toggle navigation">☰</button><span class="topbar-context">Wednesday, October 21, 2026</span><div class="topbar-actions"><a href="/notifications" class="icon-button" aria-label="Notifications">◌<span class="notification-dot"></span></a><a class="help-link" href="/notifications">Need help?</a></div></div><slot /></main></div>
+<script>document.querySelector('.mobile-menu')?.addEventListener('click', () => document.querySelector('.sidebar')?.classList.toggle('is-open'));</script>
+</body></html>

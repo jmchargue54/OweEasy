@@ -1,0 +1,3 @@
+import { ObjectId } from 'mongodb';
+import { getDb } from '../../../lib/server/db.js';
+export async function POST({ request, locals, redirect }) { if (!locals.user) return redirect('/login', 303); const form = await request.formData(); const rawId = String(form.get('groupId') || ''); if (!ObjectId.isValid(rawId)) return redirect('/dashboard', 303); const db = await getDb(); const result = await db.collection('groups').updateOne({ _id: new ObjectId(rawId), createdBy: new ObjectId(locals.user.id) }, { $set: { name: String(form.get('name') || '').trim(), description: String(form.get('description') || '').trim(), updatedAt: new Date() } }); return redirect(result.matchedCount ? `/groups/${rawId}` : '/dashboard', 303); }

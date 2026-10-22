@@ -1,0 +1,5 @@
+---
+import '../styles/global.css';
+const { title = 'Welcome' } = Astro.props;
+---
+<!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width" /><title>{title} · OweEasy</title></head><body class="auth-body"><main class="auth-wrap"><a class="brand auth-brand" href="/"><span class="brand-mark">oe</span><span>OweEasy</span></a><slot /><p class="auth-foot">Simple shared expenses for the people you live, travel, and plan with.</p></main></body></html>

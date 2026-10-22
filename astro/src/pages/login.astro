@@ -1,0 +1,4 @@
+---
+import AuthLayout from '../layouts/AuthLayout.astro';
+---
+<AuthLayout title="Sign in"><section class="auth-card"><p class="eyebrow">Welcome back</p><h1>Sign in to your shared life.</h1><p class="auth-muted">Pick up right where you left off.</p>{Astro.url.searchParams.get('error') && <p class="form-error" role="alert">Sign in failed. Please check your details and try again.</p>}<form method="POST" action="/api/auth/login"><label>Email address<input type="email" name="email" required autocomplete="email" /></label><label>Password<input type="password" name="password" required autocomplete="current-password" /></label><button class="button auth-submit" type="submit">Sign in <span>→</span></button></form><div class="auth-divider"><span>or</span></div><a class="button secondary auth-submit" href="/api/auth/google">Continue with Google</a><p class="auth-switch">New to OweEasy? <a href="/signup">Create an account</a></p></section></AuthLayout>

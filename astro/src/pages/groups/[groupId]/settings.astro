@@ -1,0 +1,13 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { ObjectId } from 'mongodb';
+import { getDb } from '../../../lib/server/db.js';
+const groupId = Astro.params.groupId;
+const db = await getDb();
+const group = ObjectId.isValid(groupId) ? await db.collection('groups').findOne({ _id: new ObjectId(groupId), createdBy: new ObjectId(Astro.locals.user.id) }) : null;
+if (!group) return Astro.redirect('/dashboard');
+const requests = await db.collection('groupJoinRequests').find({ groupId: group._id, status: 'pending' }).toArray();
+const requestUsers = await db.collection('users').find({ _id: { $in: requests.map((item) => item.userId) } }, { projection: { name: 1, email: 1 } }).toArray();
+const requestMap = Object.fromEntries(requestUsers.map((item) => [item._id.toString(), item]));
+---
+<Layout title="Group settings"><div class="page"><header class="page-heading"><div><p class="eyebrow">{group.name}</p><h1>Group settings.</h1><p>Keep the shared space accurate as your group changes.</p></div><a class="button secondary" href={`/groups/${group._id}`}>← Back to group</a></header><div class="form-layout"><form class="panel form-card" method="POST" action="/api/groups/update"><input type="hidden" name="groupId" value={group._id} /><label>Group name<input name="name" required value={group.name} /></label><label>Description<input name="description" value={group.description || ''} /></label><button class="button" type="submit">Save changes</button></form><section class="panel"><div class="panel-heading"><div><h2>Join requests</h2><p>Approve people who should see this ledger</p></div></div>{requests.length ? requests.map((request) => <div class="notification unread"><div><strong>{requestMap[request.userId.toString()]?.name || 'Unknown user'}</strong><p>{requestMap[request.userId.toString()]?.email || ''} requested to join {group.name}.</p></div><span style="display:flex;gap:7px"><form method="POST" action="/api/groups/request"><input type="hidden" name="groupId" value={group._id} /><input type="hidden" name="requestId" value={request._id} /><input type="hidden" name="decision" value="declined" /><button class="read-button" type="submit">Deny</button></form><form method="POST" action="/api/groups/request"><input type="hidden" name="groupId" value={group._id} /><input type="hidden" name="requestId" value={request._id} /><input type="hidden" name="decision" value="approved" /><button class="button" style="padding:7px 10px;font-size:.7rem" type="submit">Approve</button></form></span></div>) : <p class="auth-muted">No pending requests.</p>}</section></div></div></Layout>
