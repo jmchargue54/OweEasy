@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/node": "^9.5.5",
+    "@astrojs/netlify": "^6.6.5",
     "astro": "^5.15.0",
     "bcryptjs": "^3.0.2",
     "google-auth-library": "^11.3.1",
