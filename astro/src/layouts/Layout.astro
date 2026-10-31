@@ -1,16 +1,21 @@
 ---
 import '../styles/global.css';
+import { ObjectId } from 'mongodb';
+import { getDb } from '../lib/server/db.js';
 const { title = 'OweEasy', description = 'Clear shared expenses for real life.' } = Astro.props;
 const currentPath = Astro.url.pathname;
+const db = await getDb();
+const unreadInboxCount = Astro.locals.user ? await db.collection('notifications').countDocuments({ userId: new ObjectId(Astro.locals.user.id), readAt: null }) : 0;
 const nav = [
   { href: '/dashboard', label: 'Overview', icon: '⌂' },
-  { href: '/groups/alpha', label: 'Household', icon: '◫' },
-  { href: '/groups/alpha/balances', label: 'Balances', icon: '↗' },
-  { href: '/notifications', label: 'Inbox', icon: '◌' }
+  { href: '/notifications', label: 'Inbox', icon: '✉', count: unreadInboxCount },
+  { href: '/groups/new', label: 'New group', icon: '+' }
 ];
+const initials = Astro.locals.user.name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
 ---
 <!doctype html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width" /><meta name="description" content={description} /><title>{title} · OweEasy</title></head><body>
-<div class="app-shell"><aside class="sidebar" aria-label="Primary navigation"><a class="brand" href="/dashboard"><span class="brand-mark">oe</span><span>OweEasy</span></a><div class="sidebar-label">Workspace</div><nav>{nav.map((item) => <a class:list-active={currentPath === item.href || (item.href !== '/dashboard' && currentPath.startsWith(item.href))} href={item.href}><span class="nav-icon" aria-hidden="true">{item.icon}</span>{item.label}</a>)}</nav><div class="sidebar-spacer"></div><div class="sidebar-note"><span class="spark">✦</span><b>Keep it clear</b><p>Every balance has a story. OweEasy helps you find it.</p></div><a class="profile" href="/dashboard"><span class="avatar avatar-lilac">JM</span><span><b>Jordan Miller</b><small>Personal workspace</small></span><span class="profile-more">···</span></a></aside>
-<main class="main-content"><div class="topbar"><button class="mobile-menu" aria-label="Toggle navigation">☰</button><span class="topbar-context">Wednesday, October 21, 2026</span><div class="topbar-actions"><a href="/notifications" class="icon-button" aria-label="Notifications">◌<span class="notification-dot"></span></a><a class="help-link" href="/notifications">Need help?</a></div></div><slot /></main></div>
+<div class="app-shell"><aside class="sidebar" aria-label="Primary navigation"><a class="brand" href="/dashboard"><span class="brand-mark">oe</span><span>OweEasy</span></a><div class="sidebar-label">Workspace</div><nav>{nav.map((item) => <a class:list-active={currentPath === item.href || (item.href !== '/dashboard' && currentPath.startsWith(item.href))} href={item.href}><span class="nav-icon" aria-hidden="true">{item.icon}</span><span>{item.label}</span>{item.count > 0 && <span class="nav-count">{item.count}</span>}</a>)}</nav><div class="sidebar-spacer"></div><div class="sidebar-note"><span class="spark">✦</span><b>Keep it clear</b><p>Every balance has a story. OweEasy helps you find it.</p></div><div class="profile-row"><a class="profile" href="/profile"><span class="avatar avatar-lilac">{initials}</span><span><b>{Astro.locals.user.name}</b><small>Personal workspace</small></span></a><details class="profile-menu"><summary aria-label="Profile options">···</summary><div class="profile-dropdown"><a href="/profile">Edit profile</a><form method="POST" action="/api/auth/logout"><button type="submit">Log out</button></form></div></details></div></aside>
+<main class="main-content"><div class="topbar"><button class="mobile-menu" aria-label="Toggle navigation">☰</button><span class="topbar-context">Wednesday, October 28, 2026</span></div><slot /></main></div>
 <script>document.querySelector('.mobile-menu')?.addEventListener('click', () => document.querySelector('.sidebar')?.classList.toggle('is-open'));</script>
+<script>const equalizeGroupPanels = () => { const hero = document.querySelector('.group-hero:has(+ .panel)'); const requests = hero?.nextElementSibling; if (!hero || !requests) return; hero.style.height = ''; requests.style.height = ''; if (window.innerWidth <= 960) return; const height = Math.max(hero.offsetHeight, requests.offsetHeight); hero.style.height = `${height}px`; requests.style.height = `${height}px`; }; equalizeGroupPanels(); window.addEventListener('resize', equalizeGroupPanels);</script>
 </body></html>
