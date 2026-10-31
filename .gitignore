@@ -1,5 +1,7 @@
 node_modules/
 .svelte-kit/
+astro/.astro/
+astro/dist/
 .netlify/
 build/
 .env

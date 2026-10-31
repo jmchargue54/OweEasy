@@ -1,0 +1,7 @@
+import { loginWithGoogle } from '../../../../lib/server/auth.js';
+export async function GET({ url, cookies, redirect }) {
+  const code = url.searchParams.get('code'); const state = url.searchParams.get('state'); const savedState = cookies.get('google_oauth_state')?.value; cookies.delete('google_oauth_state', { path: '/' });
+  if (!code || !state || state !== savedState) return redirect('/login?error=oauth', 303);
+  try { const result = await loginWithGoogle(code); cookies.set('session', result.sessionId, { path: '/', httpOnly: true, sameSite: 'lax', secure: import.meta.env.PROD, maxAge: 1200 }); return redirect('/dashboard', 303); }
+  catch { return redirect('/login?error=oauth', 303); }
+}

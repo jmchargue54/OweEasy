@@ -1,0 +1,3 @@
+import { ObjectId } from 'mongodb';
+import { getDb } from '../../../lib/server/db.js';
+export async function POST({ request, locals, redirect }) { if (!locals.user) return redirect('/login', 303); const form = await request.formData(); const name = String(form.get('name') || '').trim(); if (name.length < 2) return redirect('/groups/new?error=name', 303); const db = await getDb(); const id = new ObjectId(); await db.collection('groups').insertOne({ _id: id, name, description: String(form.get('description') || '').trim(), memberIds: [new ObjectId(locals.user.id)], createdBy: new ObjectId(locals.user.id), autoNettingEnabled: false, createdAt: new Date(), updatedAt: new Date() }); return redirect(`/groups/${id}`, 303); }

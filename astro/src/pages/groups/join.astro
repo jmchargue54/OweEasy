@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getDb } from '../../lib/server/db.js';
+import { ObjectId } from 'mongodb';
+const db = await getDb(); const userId = new ObjectId(Astro.locals.user.id); const groups = await db.collection('groups').find({ memberIds: { $ne: userId } }).sort({ name: 1 }).limit(100).toArray();
+---
+<Layout title="Join a group"><div class="page"><header class="page-heading"><div><p class="eyebrow">Find your people</p><h1>Join a group.</h1><p>Ask to join a group and wait for the creator to approve you.</p></div><a class="button secondary" href="/dashboard">Back to overview</a></header>{Astro.url.searchParams.get('success') && <p class="tag mint" role="status">Join request sent.</p>}{Astro.url.searchParams.get('error') && <p class="form-error" role="alert">That group could not be joined.</p>}<div class="form-layout"><section class="panel"><div class="panel-heading"><div><h2>Discoverable groups</h2><p>Choose a group to request access</p></div></div>{groups.length ? groups.map((group) => <div class="balance-line"><span><strong>{group.name}</strong><small>{group.memberIds.length} members · {group.description || 'Shared expenses'}</small></span><form method="POST" action="/api/groups/join"><input type="hidden" name="groupId" value={group._id} /><button class="button secondary" type="submit">Request to join</button></form></div>) : <div class="empty-state">There are no other groups available right now.</div>}</section></div></div></Layout>

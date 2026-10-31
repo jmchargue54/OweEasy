@@ -1,0 +1,4 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Profile"><div class="page"><header class="page-heading"><div><p class="eyebrow">Personal workspace</p><h1>Your profile.</h1><p>Update the name and email address used across OweEasy.</p></div><a class="button secondary" href="/dashboard">Back to overview</a></header><form class="panel form-card" style="max-width:700px" method="POST" action="/api/profile/update"><label>Your name<input name="name" required minlength="2" value={Astro.locals.user.name} /></label><label>Email address<input type="email" name="email" required value={Astro.locals.user.email} /></label>{Astro.url.searchParams.get('error') && <p class="form-error" role="alert">{Astro.url.searchParams.get('error')}</p>}{Astro.url.searchParams.get('success') && <p class="tag mint" role="status">Profile updated.</p>}<button class="button" type="submit">Save profile</button></form></div></Layout>
