@@ -1,4 +1,4 @@
 [build]
-  base = "sveltekit"
+  base = "astro"
   command = "pnpm run build"
-  publish = "build"
+  publish = "dist"
